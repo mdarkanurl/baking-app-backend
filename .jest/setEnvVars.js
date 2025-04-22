@@ -1,0 +1,1 @@
+process.env.TESTING_MONGO_URI = 'mongodb+srv://mdarkanurl:6081@cluster0.4qjd3nb.mongodb.net/';
