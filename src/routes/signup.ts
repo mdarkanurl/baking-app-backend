@@ -4,8 +4,8 @@ const router = express.Router();
 
 router.route('/').post(signup);
 
-router.route('*').all((req, res) => {
- res.status(404).json({ message: 'Invalid route' });
-});
+// router.route('*').all((req, res) => {
+//  res.status(404).json({ message: 'Invalid route' });
+// });
 
 export = router;

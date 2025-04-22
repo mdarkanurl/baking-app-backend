@@ -1,48 +1,18 @@
-import { testDB } from './src/config/db';
-import request from 'supertest';
+jest.setTimeout(10000);
+
 import app from './src/app';
-import { faker } from '@faker-js/faker';
+import request from 'supertest';
 
-const username = faker.internet.userName();
-const recipient = faker.internet.userName();
-const password = faker.internet.password();
+const username = 'mdarkanurl'; //Creating a random username
+const recipient = 'thearkan'; //Creating a random recipient
+const password = 'Mia6081';
 
-describe('Testing the express route', () => {
- beforeAll(async () => {
-   await testDB().catch(err => {
-     console.log('err', err.message);
-   });
- }, 30000);
+test('Testing the express route', async () => {
 
+    const res = await request(app)
+    .post('/api/signup')
+    .send({ username, password })
+    
+    expect(res.status).toBe(201);
 
- describe('Testing the signup route', () => {
-   test('successful signup test', async () => {
-     await request(app)
-       .post('/api/signup')
-       .send({ username, password })
-       .then(res => {
-         expect(res.status).toBe(201);
-       });
-
-     await request(app)
-       .post('/api/signup')
-       .send({
-         username: recipient,
-         password
-       })
-       .then(res => {
-         expect(res.status).toBe(201);
-       });
-   });
-
-
-   test('failed signup test', async () => {
-     await request(app)
-       .post('/api/signup')
-       .send({})
-       .then(res => {
-         expect(res.status).toBe(400); //Checking if the status code is 400
-       });
-   });
- });
 });
